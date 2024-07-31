@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Store Gardening Service Data</title>
+  <style>
+     body {
+      background-image: url("/img/feature.jpg");
+      background-repeat: no-repeat;
+    }
+    form {
+      background-color: aliceblue;
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 300px;
+    }
+    input[type="text"],
+    input[type="datetime-local"],
+    input[type="number"],
+    input[type="email"] {
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    h1 {
+      background-color: yellow;
+      width: max-content;
+      padding: 10px;
+    }
+    input[type="button"]{
+      background-color: aliceblue;
+      border: none;  
+    }
+  </style>
+</head>
+<body>
+    <h1>Gardening Services</h1>
+  <form id="gardeningServiceForm" action="/save-gardening-service-data" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br><br>
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required>
+    <br><br>
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+    <br><br>
+    <label for="gardeningDate">Date:</label>
+    <input type="datetime-local" id="gardeningDate" name="gardeningDate" required>
+    <br><br>
+    <label for="gardeningPrice">Price:</label>
+    <input type="button" id="gardeningPrice" name="gardeningPrice" value="Rs.650">
+    <br><br><br>
+    <input type="submit" value="Submit">
+  </form>
+
+    <script>
+    document.getElementById('gardeningServiceForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const formData = new FormData(this);
+  const data = {};
+  formData.forEach(function(value, key){
+    data[key] = value;
+  });
+
+  // Sending form data to the server
+  fetch('/save-gardening-service-data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    throw new Error('Network response was not ok.');
+  })
+  .then(data => {
+    console.log('Data sent:', data);
+    // Display success message to the user
+    alert('Service Booked');
+    // You can also perform additional actions after successful data submission
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Handle errors here
+    alert('Error occurred while saving data');
+  });
+});
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cleaning Services</title>
+</head>
+<style>
+  body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Style the main heading */
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Style each service container */
+div {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 600px;
+  background-color: #f9f9f9;
+}
+
+/* Style the headings for each service */
+h2 {
+  margin-bottom: 10px;
+}
+
+/* Style the form button */
+button {
+  padding: 8px 15px;
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Style the form button on hover */
+button:hover {
+  background-color: #cc0000;
+}
+
+/* Style the paragraphs inside the service container */
+p {
+  margin: 5px 0;
+}
+</style>
+<body>
+  <h1>Gardening Services</h1>
+  <% services.forEach(function(service) { %>
+    <div>
+      <h2><%= service.name %></h2>
+      <p>Email: <%= service.email %></p>
+      <p>BookID:<%= service._id %></p>
+      <p>Phone Number: <%= service.phoneNumber %></p>
+      <p>Address: <%= service.address %></p>
+      <p>Cleaning Date: <%= service.cleaningDate %></p>
+      <p>Cleaning Price: <%= service.cleaningPrice %></p>
+      
+      <form action="/gservice/<%= service._id %>?_method=DELETE" method="POST">
+        <input type="hidden" name="_id" value="<%= service._id %>">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  <% }); %>
+</body>
+</html>
